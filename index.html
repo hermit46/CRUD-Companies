@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Company Search</title>
+<style>
+	#question { 
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+	
+<h1>Company Search</h1>
+<form id = "form" action="search" method = "GET">
+<div>
+	<label for="type" id="question"> What type of data do you want to search for?</label> <p></p>
+	<input rad="symbol" name="type"  id="symbol" value="symbol" type="radio"> Stock Ticker Symbol
+	<input rad="name" name="type" id="name" value="name" type="radio" checked> Company Name
+</div> <p></p>
+Name of Data: <input type = "text" name="query" > <p></p>
+<br> <button>Submit!</button>
+</form>
+</body>
+</html>
