@@ -75,6 +75,6 @@ process.on('unhandledRejection', err => {
     console.log("----------------------------")
 })
 
-app.listen(8000, console.log("Server Started."))
+app.listen(process.env.PORT || 8000, console.log("Server Started."))
 
 
