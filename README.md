@@ -10,4 +10,6 @@ To run locally, start by going to directory of page and running `npm start`
 
 To run on heroku, go to directory of page and run `heroku open` (will need account to login)
 
+URL: https://cs20-nodejs.herokuapp.com/
+
 Total time taken: 15 hours
