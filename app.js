@@ -3,10 +3,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 let uri = "mongodb+srv://hermit46:Water1sl!fe@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
 
 //catching exceptions
 const catchExceptions = func => {
@@ -20,13 +16,11 @@ const catchExceptions = func => {
 const app = express()
  
  // connect to mongoDB
-mongoose.connect(uri, options)
+mongoose.connect(uri, {useNewUrlParser: true})
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', (error) => console.log("Connected to Database."))
 mongoose.Promise = global.Promise
-
-app.listen(8000, console.log("Server Started."))
 
 // Initialize home page
 app.get('/', (req, res) => {
@@ -62,7 +56,8 @@ app.get('/search', catchExceptions(async (req,res) => {
             res.send(printData(items, resultArray))
         }
     })
-}))
+})
+)
 
 
 function printData(items, result) {
@@ -72,4 +67,14 @@ function printData(items, result) {
     output += "<br> <a href ='/'> Home Page </a>"
     return output
 }
+
+// Useful for production environment: create process event listener for unhandled rejection
+process.on('unhandledRejection', err => {
+    // if you want a stack always throw an error
+    console.log(`Send this to error tracking: ${err.stack}`)
+    console.log("----------------------------")
+})
+
+app.listen(8000, console.log("Server Started."))
+
 
