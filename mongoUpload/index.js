@@ -2,7 +2,7 @@ var fs = require("fs");
 var parse = require('csv-parser');
 var mongodb = require("mongodb");
 var data = [];
-let uri = "mongodb+srv://hermit46:Water1sl!fe@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority";
+let uri = "mongodb+srv://hermit46:<password>@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority";
 
 fs.createReadStream("companies.csv")
     .pipe(parse({ delimiter: ','}))
