@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
-let uri = "mongodb+srv://hermit46:Water1sl!fe@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
+let uri = "mongodb+srv://hermit46:<password>@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
 
 //catching exceptions
 const catchExceptions = func => {
