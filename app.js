@@ -5,8 +5,6 @@ const path = require('path')
 let uri = "mongodb+srv://hermit46:Water1sl!fe@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
 const options = {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
     useUnifiedTopology: true,
   };
 
