@@ -1,5 +1,7 @@
 # cs20-nodejs
 
+<h1> Company Search </h1>
+
 A simple search page that uses Node.JS, MongoDB and is powered by Heroku.
 User may search either with the Stock Ticker Symbol, or Company Name.
 If at least one entry matches, it will return the details of the company(ies).
