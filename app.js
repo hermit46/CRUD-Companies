@@ -8,6 +8,13 @@ const options = {
     useUnifiedTopology: true,
   };
 
+//catching exceptions
+const catchExceptions = func => {
+    return (req, res, next) => {
+        Promise.resolve(func(req,res)).catch(next)
+    }
+}
+
 
 //set up our express app
 const app = express()
@@ -27,7 +34,7 @@ app.get('/', (req, res) => {
 })
 
 // Searching by Ticker or Name
-app.get('/search', function(req,res) {
+app.get('/search', catchExceptions(async (req,res) => {
     var query = ""
     if (req.query['query'] == "") {
         res.send("Empty search! <p> <a href ='/'> Home Page </a>");
@@ -55,7 +62,8 @@ app.get('/search', function(req,res) {
             res.send(printData(items, resultArray))
         }
     })
-})
+}))
+
 
 function printData(items, result) {
     var output = ""
@@ -64,3 +72,4 @@ function printData(items, result) {
     output += "<br> <a href ='/'> Home Page </a>"
     return output
 }
+
