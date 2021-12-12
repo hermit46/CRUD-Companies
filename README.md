@@ -4,7 +4,7 @@ A simple search page that uses Node.JS, MongoDB and is powered by Heroku.
 User may search either with the Stock Ticker Symbol, or Company Name.
 If at least one entry matches, it will return the details of the company(ies).
 
-Data can be found in ./mongoUpload/companies.csv
+Data can be found in `./mongoUpload/companies.csv`
 
 To run locally, start by going to directory of page and running `npm start`
 
