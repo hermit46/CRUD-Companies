@@ -75,6 +75,8 @@ process.on('unhandledRejection', err => {
     console.log("----------------------------")
 })
 
-app.listen(process.env.PORT || 8000, console.log("Server Started."))
+app.listen(process.env.PORT || 8000, function() {
+    console.log("Server Started & Listening on port %d in %s mode.", this.address().port, app.settings.env)
+}) 
 
 
