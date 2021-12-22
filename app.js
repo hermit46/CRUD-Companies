@@ -11,12 +11,12 @@ const catchExceptions = func => {
     }
 }
 
-
 //set up our express app
 const app = express()
  
  // connect to mongoDB
 mongoose.connect(uri, {useNewUrlParser: true})
+// to connect to uri using env: process.env.MONGODB_URI
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', (error) => console.log("Connected to Database."))
@@ -58,7 +58,6 @@ app.get('/search', catchExceptions(async (req,res) => {
     })
 })
 )
-
 
 function printData(items, result) {
     var output = ""
