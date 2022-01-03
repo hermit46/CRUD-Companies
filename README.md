@@ -15,3 +15,13 @@ To run on heroku, go to directory of page and run `heroku open` (will need accou
 URL: https://cs20-nodejs.herokuapp.com/
 
 Total time taken: 15 hours
+
+Features:
+- GET
+
+Features to build:
+- POST
+- UPDATE
+- DELETE
+
+
