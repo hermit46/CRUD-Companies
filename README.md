@@ -17,11 +17,11 @@ URL: https://cs20-nodejs.herokuapp.com/
 Total time taken: 15 hours
 
 Features:
+
 - GET
+- POST
 
 Features to build:
-- POST
+
 - UPDATE
 - DELETE
-
-
