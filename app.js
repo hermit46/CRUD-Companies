@@ -1,8 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const path = require('path')
-let uri = "mongodb+srv://hermit46:<password>@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
+let uri = "mongodb+srv://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@cluster0.hlswi.mongodb.net/Stocks?retryWrites=true&w=majority"
+var Company = require('./models/company.js')
 
 //catching exceptions
 const catchExceptions = func => {
@@ -11,9 +13,15 @@ const catchExceptions = func => {
     }
 }
 
-
 //set up our express app
 const app = express()
+
+// POST needs the body parser to retrieve data & translate it to JS
+app.use(bodyParser.urlencoded({
+    extended: false
+ }))
+
+ app.use(bodyParser.json())
  
  // connect to mongoDB
 mongoose.connect(uri, {useNewUrlParser: true})
@@ -27,12 +35,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-// Searching by Ticker or Name
+
+// SEARCHING BY TICKER OR NAME  (GET)
 app.get('/search', catchExceptions(async (req,res) => {
     var query = ""
     if (req.query['query'] == "") {
         res.send("Empty search! <p> <a href ='/'> Home Page </a>");
-        return;
+        return
     }
     // When searching for symbol
     else if (req.query['type'] == 'symbol') {
@@ -59,6 +68,67 @@ app.get('/search', catchExceptions(async (req,res) => {
 })
 )
 
+// ADDING A NEW ENTRY (POST)
+app.post('/add', catchExceptions(async (req,res) => {
+    var companyData = {
+        Company: req.body.name,
+        Ticker: req.body.symbol
+    }
+
+    //BONUS: To check if entry already exists? 
+    db.collection('companies').find(companyData).limit(1).size().toArray (function (err, items) {
+        if (err)
+            console.log("Error: " + err)
+        else if (items.length)
+            console.log("Item exists, therefore no action is performed.")
+    })
+
+    new Company(companyData).save()
+    console.log("Inserted!" + '\n' + 
+                "Name: " + req.body.name + '\n' + 
+                "Ticker: " + req.body.symbol)
+    res.redirect('/')
+
+}))
+
+// app.get('/add', catchExceptions(async (req,res) => {
+//     if (req.query['name'] == "") {
+//         res.send("Empty search! <p> <a href ='/'> Home Page </a>")
+//         return
+//     }
+//     else if (req.query['symbol'] == "") {
+//         res.send("Empty search! <p> <a href ='/'> Home Page </a>")
+//         return
+//     }
+//     console.log(req.query['symbol'])
+//     console.log(req.query['name'])
+//     var companyData = {
+//         Ticker: req.query['symbol'].trim(),
+//         Company: req.query['name'].trim()
+//     }
+//     // Check for pre-existing name & symbol
+//     // We will need an async result (db query for existing) and
+//     // validators don't support promises, hence need to create own function & pass callback
+//     db.collection('companies').find(companyData).toArray(function (err, items) {
+//         if (err)
+//             console.log("Error: " + err)
+//         else if (items.length) // Found a pre-existing search
+//             res.send("Entry already exists. <p> <a href ='/'> Home Page </a>")
+//         else { 
+//             app.post('/post', (req,res) => {
+//                 db.collection('companies').insertOne(companyData, function(err,res) {
+//                     if (err)
+//                         console.log("Error: " + err)
+//                     else
+//                         res.send("Item inserted! <p> <a href ='/'> Home Page </a>")
+                    
+//                 })
+//             })
+//         }
+//     })
+// })
+// )
+
 
 function printData(items, result) {
     var output = ""
@@ -75,6 +145,8 @@ process.on('unhandledRejection', err => {
     console.log("----------------------------")
 })
 
-app.listen(process.env.PORT || 8000, console.log("Server Started."))
+app.listen(process.env.PORT || 8000, function() {
+    console.log("Server Started & Listening on port %d in %s mode.", this.address().port, app.settings.env)
+}) 
 
 

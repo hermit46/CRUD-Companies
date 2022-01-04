@@ -11,6 +11,9 @@ const CompanySchema = new Schema({
         type: String,
         required: true
     },
+},{
+    // versionKey is shown as __v: 0 (default val) in mongoDB, setting to false makes it not show up
+    versionKey: false 
 });
 
 // This model allows us to interact with the schema
