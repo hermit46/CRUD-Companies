@@ -76,19 +76,18 @@ app.post('/add', catchExceptions(async (req,res) => {
     }
 
     //BONUS: To check if entry already exists? 
-    db.collection('companies').find(companyData).limit(1).size().toArray (function (err, items) {
-        if (err)
-            console.log("Error: " + err)
-        else if (items.length)
-            console.log("Item exists, therefore no action is performed.")
-    })
+    // db.collection('companies').find(companyData).limit(1).size().toArray (function (err, items) {
+    //     if (err)
+    //         console.log("Error: " + err)
+    //     else if (items.length)
+    //         console.log("Item exists, therefore no action is performed.")
+    // })
 
     new Company(companyData).save()
     console.log("Inserted!" + '\n' + 
                 "Name: " + req.body.name + '\n' + 
                 "Ticker: " + req.body.symbol)
     res.redirect('/')
-
 }))
 
 // app.get('/add', catchExceptions(async (req,res) => {
